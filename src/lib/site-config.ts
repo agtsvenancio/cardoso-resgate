@@ -1,4 +1,4 @@
-export const siteConfig = {
+export const siteConfig: { name: string; shortName: string; whatsapp: string; phone: string; email: string; address: string; serviceArea: string } = {
   name: "Auto Resgate Cardoso",
   shortName: "Cardoso",
   whatsapp: "",
