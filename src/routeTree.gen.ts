@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BateriasRouteImport } from './routes/baterias'
+import { Route as Guincho24hRouteImport } from './routes/guincho-24h'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BateriasRoute = BateriasRouteImport.update({
+  id: '/baterias',
+  path: '/baterias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Guincho24hRoute = Guincho24hRouteImport.update({
+  id: '/guincho-24h',
+  path: '/guincho-24h',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/baterias': typeof BateriasRoute
+  '/guincho-24h': typeof Guincho24hRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/baterias': typeof BateriasRoute
+  '/guincho-24h': typeof Guincho24hRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/baterias': typeof BateriasRoute
+  '/guincho-24h': typeof Guincho24hRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/baterias' | '/guincho-24h'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/baterias' | '/guincho-24h'
+  id: '__root__' | '/' | '/baterias' | '/guincho-24h'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BateriasRoute: typeof BateriasRoute
+  Guincho24hRoute: typeof Guincho24hRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/baterias': {
+      id: '/baterias'
+      path: '/baterias'
+      fullPath: '/baterias'
+      preLoaderRoute: typeof BateriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guincho-24h': {
+      id: '/guincho-24h'
+      path: '/guincho-24h'
+      fullPath: '/guincho-24h'
+      preLoaderRoute: typeof Guincho24hRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BateriasRoute: BateriasRoute,
+  Guincho24hRoute: Guincho24hRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
